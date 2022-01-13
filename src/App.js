@@ -1,10 +1,19 @@
-import Mainpage from './pages/Mainpage';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import Homepage from './pages/Homepage';
+// import Mainpage from './pages/Mainpage';
 
 function App() {
   return (
-    <div className='App'>
-      <Mainpage />
-    </div>
+    <>
+      {/* <Mainpage /> */}
+      <BrowserRouter>
+        <Switch>
+          <Route>
+            <Homepage />
+          </Route>
+        </Switch>
+      </BrowserRouter>
+    </>
   );
 }
 
