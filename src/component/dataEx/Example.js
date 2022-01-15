@@ -62,8 +62,8 @@ const Example = () => {
     <>
       <ExampleInputValue
         handleSubmit={handleSubmit}
-        // data={data}
-        // setData={setData}
+        data={data}
+        setData={setData}
         postSequence={postSequence}
         setPostSequence={setPostSequence}
       />
