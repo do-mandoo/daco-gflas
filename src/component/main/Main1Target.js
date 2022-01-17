@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { FaTrash, FaInfoCircle } from 'react-icons/fa';
-import ExampleInputValue from '../dataEx/ExampleInputValue';
+// import ExampleInputValue from '../dataEx/ExampleInputValue';
 
 const TargetWrap = styled.section`
   /* background-color: #ccc; */
@@ -38,7 +38,7 @@ const ChooseInput = styled.article`
 const TextArea = styled.article`
   /* background-color: yellowgreen; */
   /* display: none; */
-  /* textarea {
+  textarea {
     max-height: 140px;
     width: 300px;
     font-size: 16px;
@@ -47,22 +47,22 @@ const TextArea = styled.article`
     resize: none;
     padding: 15px 20px;
     text-transform: uppercase;
-  } */
+  }
   display: flex;
   flex-flow: row nowrap;
   margin-bottom: 40px;
   form {
     position: relative;
-    .valueArea {
+    /* .valueArea {
       height: 140px;
       width: 350px;
       font-size: 16px;
       line-height: 20px;
       letter-spacing: 1.5px;
       /* resize: none; */
-      padding: 15px 20px;
-      text-transform: uppercase;
-    }
+    /* padding: 15px 20px;
+      text-transform: uppercase; */
+    /* } */
     .enterValueBtn {
       margin-top: 5px;
       padding: 5px 0;
@@ -187,12 +187,21 @@ const Main1Target = ({ handleSubmit, postSequence, setPostSequence, data }) => {
         </ChooseInput>
         <TextArea>
           <form onSubmit={handleSubmit}>
-            <input
+            {/* <input
               className='valueArea'
               rows='10'
               // maxLength='1000'
               value={postSequence}
               // spellCheck='false'
+              placeholder='Enter up to 500 target IDs.'
+              onChange={onChange}
+            /> */}
+            <textarea
+              className='valueArea'
+              rows='10'
+              maxLength='1000'
+              value={postSequence}
+              spellCheck='false'
               placeholder='Enter up to 500 target IDs.'
               onChange={onChange}
             />
