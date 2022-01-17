@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import client from '../../api/client';
+// import Main1Target from '../main/Main1Target';
 import ExampleInputValue from './ExampleInputValue';
 import ExampleResult from './ExampleResult';
 import ExampleShowResult from './ExampleShowResult';

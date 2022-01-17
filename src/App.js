@@ -7,14 +7,14 @@ function App() {
   return (
     <>
       {/* <Mainpage /> */}
-      {/* <BrowserRouter>
+      <BrowserRouter>
         <Switch>
           <Route>
             <Homepage />
           </Route>
         </Switch>
-      </BrowserRouter> */}
-      <Example />
+      </BrowserRouter>
+      {/* <Example /> */}
     </>
   );
 }

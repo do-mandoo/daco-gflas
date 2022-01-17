@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { FaTrash, FaInfoCircle } from 'react-icons/fa';
+import ExampleInputValue from '../dataEx/ExampleInputValue';
 
 const TargetWrap = styled.section`
   /* background-color: #ccc; */
@@ -21,6 +22,7 @@ const SelectOption = styled.article`
 
 const ChooseInput = styled.article`
   /* background-color: skyblue; */
+  display: none;
   input {
     font-size: 14px;
     width: 100%;
@@ -34,8 +36,69 @@ const ChooseInput = styled.article`
 `;
 
 const TextArea = styled.article`
-  background-color: yellowgreen;
-  display: none;
+  /* background-color: yellowgreen; */
+  /* display: none; */
+  /* textarea {
+    max-height: 140px;
+    width: 300px;
+    font-size: 16px;
+    line-height: 20px;
+    letter-spacing: 1.5px;
+    resize: none;
+    padding: 15px 20px;
+    text-transform: uppercase;
+  } */
+  display: flex;
+  flex-flow: row nowrap;
+  margin-bottom: 40px;
+  form {
+    position: relative;
+    .valueArea {
+      height: 140px;
+      width: 350px;
+      font-size: 16px;
+      line-height: 20px;
+      letter-spacing: 1.5px;
+      /* resize: none; */
+      padding: 15px 20px;
+      text-transform: uppercase;
+    }
+    .enterValueBtn {
+      margin-top: 5px;
+      padding: 5px 0;
+      width: 100px;
+      position: absolute;
+      bottom: -35px;
+      right: 0;
+    }
+  }
+  .showValueBlock {
+    display: flex;
+    flex-flow: column wrap;
+    margin-left: 10px;
+    .valueH {
+      color: #fff;
+      margin-top: -10px;
+      margin-bottom: 5px;
+    }
+  }
+  .showEnterValue {
+    display: flex;
+    flex-flow: column wrap;
+    width: 300px;
+    max-height: 120px;
+    color: #eee;
+    font-size: 15px;
+    border: 1px solid #aaa;
+    border-radius: 5px;
+    div {
+      display: list-item;
+      list-style: inside;
+      margin-left: 5px;
+      color: skyblue;
+      text-decoration: underline;
+    }
+  }
 `;
 
 const DropFile = styled.article`
@@ -89,7 +152,18 @@ const AcceptedTargetFormats = styled.article`
   }
 `;
 
-const Main1Target = () => {
+const Main1Target = ({ handleSubmit, postSequence, setPostSequence, data }) => {
+  console.log('메인1타겟의 DATA', data);
+  // const engOnly = /^[A-Z]/g; //영문자 대문자만 허용.
+  const onChange = e => {
+    const engOnly = /[^a-zA-Z]/g;
+    const eletar = e.target;
+    if (engOnly.test(eletar.value)) {
+      eletar.value = eletar.value.replace(engOnly, '');
+    }
+    setPostSequence(eletar.value);
+  };
+
   return (
     <TargetWrap>
       <div>
@@ -97,22 +171,42 @@ const Main1Target = () => {
         <SelectOption>
           <div>
             <input type='radio' id='targetLookup' name='targetOption' />
-            <label for='targetLookup'>Quick lookup</label>
+            <label htmlFor='targetLookup'>Quick lookup</label>
           </div>
           <div>
             <input type='radio' id='targetBulk' name='targetOption' />
-            <label for='targetBulk'>Bulk</label>
+            <label htmlFor='targetBulk'>Bulk</label>
           </div>
           <div>
             <input type='radio' id='targetUploadFile' name='targetOption' />
-            <label for='targetUploadFile'>Upload file</label>
+            <label htmlFor='targetUploadFile'>Upload file</label>
           </div>
         </SelectOption>
         <ChooseInput>
-          <input autocomplete='off' placeholder='Choose a reference genome above to enable.' />
+          <input autoComplete='off' placeholder='Choose a reference genome above to enable.' />
         </ChooseInput>
         <TextArea>
-          <textarea rows='10' placeholder='Enter up to 500 target IDs.'></textarea>
+          <form onSubmit={handleSubmit}>
+            <input
+              className='valueArea'
+              rows='10'
+              // maxLength='1000'
+              value={postSequence}
+              // spellCheck='false'
+              placeholder='Enter up to 500 target IDs.'
+              onChange={onChange}
+            />
+            <button className='enterValueBtn' type='submit'>
+              값 입력
+            </button>
+          </form>
+          <div className='showValueBlock'>
+            <div className='valueH'>입력된 값: </div>
+            <div className='showEnterValue'>
+              {data &&
+                data.map(da => <div key={da.data.result}>{da.data.result.toUpperCase()}</div>)}
+            </div>
+          </div>
         </TextArea>
         <DropFile>
           <form>

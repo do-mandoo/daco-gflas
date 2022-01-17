@@ -15,7 +15,7 @@ const Main3Unpicked = () => {
       <div>
         <div>
           <input type='checkbox' id='inputUnpicked' />
-          <label for='inputUnpicked'>Report unpicked sequences?</label>
+          <label htmlFor='inputUnpicked'>Report unpicked sequences?</label>
         </div>
       </div>
     </UnPickedWrap>

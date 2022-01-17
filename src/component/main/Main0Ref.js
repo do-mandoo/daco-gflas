@@ -50,37 +50,37 @@ const Main0Ref = () => {
         <h2>Reference Genome</h2>
         <div>
           <input type='radio' id='ref0' name='refCheck' />
-          <label for='ref0'>
+          <label htmlFor='ref0'>
             Human GRCh38<span>(NCBI RefSeq v.109.20210514)</span>
           </label>
         </div>
         <div>
           <input type='radio' id='ref1' name='refCheck' />
-          <label for='ref1'>
+          <label htmlFor='ref1'>
             Human GRCh38<span>(Ensembl v.104))</span>
           </label>
         </div>
         <div>
           <input type='radio' id='ref2' name='refCheck' />
-          <label for='ref2'>
+          <label htmlFor='ref2'>
             Human GRCh37<span>(NCBI RefSeq v.105.20201022)</span>
           </label>
         </div>
         <div>
           <input type='radio' id='ref3' name='refCheck' />
-          <label for='ref3'>
-            Mouse GRCm38 <sapn>(NCBI RefSeq v.108)</sapn>
+          <label htmlFor='ref3'>
+            Mouse GRCm38 <span>(NCBI RefSeq v.108)</span>
           </label>
         </div>
         <div>
           <input type='radio' id='ref4' name='refCheck' />
-          <label for='ref4'>
+          <label htmlFor='ref4'>
             Mouse GRCm38 <span>(Ensembl v.102)</span>
           </label>
         </div>
         <div>
           <input type='radio' id='ref5' name='refCheck' />
-          <label for='ref5'>
+          <label htmlFor='ref5'>
             Rat Rnor_6.0 <span>(NCBI RefSeq v.106)</span>
           </label>
         </div>
@@ -89,40 +89,40 @@ const Main0Ref = () => {
         <h2>Mechanism</h2>
         <div>
           <input type='radio' id='mec0' name='mecCheck' />
-          <label for='mec0'>CRISPRko</label>
+          <label htmlFor='mec0'>CRISPRko</label>
         </div>
         <div>
           <input type='radio' id='mec1' name='mecCheck' />
-          <label for='mec1'>CRISPRa</label>
+          <label htmlFor='mec1'>CRISPRa</label>
         </div>
         <div>
           <input type='radio' id='mec2' name='mecCheck' />
-          <label for='mec2'>CRISPRi</label>
+          <label htmlFor='mec2'>CRISPRi</label>
         </div>
       </Mechanism>
       <Enzyme>
         <h2>Enzyme</h2>
         <div>
           <input type='radio' id='enz0' name='enzymeCheck' />
-          <label for='enz0'>
+          <label htmlFor='enz0'>
             SpyoCas9<span>(NGG)</span>
           </label>
         </div>
         <div>
           <input type='radio' id='enz1' name='enzymeCheck' />
-          <label for='enz1'>
+          <label htmlFor='enz1'>
             SaurCas9<span>(NNGRR)</span>
           </label>
         </div>
         <div>
           <input type='radio' id='enz2' name='enzymeCheck' />
-          <label for='enz2'>
+          <label htmlFor='enz2'>
             AsCas12a<span>(TTTV)</span>
           </label>
         </div>
         <div>
           <input type='radio' id='enz3' name='enzymeCheck' />
-          <label for='enz3'>enAsCas12a</label>
+          <label htmlFor='enz3'>enAsCas12a</label>
         </div>
       </Enzyme>
     </RefWrap>
