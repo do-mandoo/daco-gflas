@@ -7,33 +7,22 @@ import LogoGray from '../../image/gflasGray.png';
 import SubNav from './SubNav';
 
 const HeadNavBlock = styled.div`
-  /* background-color: purple; */
   box-sizing: border-box;
   width: 100%;
   display: flex;
   justify-content: center;
-  :hover {
-    background-color: #fff;
-  }
 `;
 
 const HeadWrap = styled.nav`
   display: flex;
   max-width: 1000px;
   justify-content: center;
-  /* background-color: pink; */
   border-bottom: 1px solid #000;
-  :hover {
-    background-color: #fff;
-    /* width: 100%; */
-    /* background-color: #dfa968; */
-  }
-  :hover .imgColor {
-    display: inline-block;
-  }
+
+  /*
   :hover li {
     color: #000;
-  }
+  } */
   h1 {
     margin: 0;
     padding: 0;
@@ -42,6 +31,9 @@ const HeadWrap = styled.nav`
     display: inline-block;
     padding: 5px 50px;
     position: relative;
+    :hover .imgColor {
+      display: inline-block;
+    }
   }
   .imgColor {
     display: none;
@@ -67,23 +59,21 @@ const NavWrap = styled.ul`
     display: inline-block;
     padding: 25px 35px;
   }
-  ul:hover {
-    /* background-color: #fff; */
+  .navItems {
+    :hover {
+      color: #69f9f9;
+      font-weight: bold;
+    }
+    :hover a {
+      text-decoration: underline;
+    }
   }
 `;
 
 const Head = () => {
-  const [dropdown, setDropdown] = useState(false);
   return (
     <HeadNavBlock>
-      <HeadWrap
-        onMouseEnter={() => {
-          setDropdown(true);
-        }}
-        onMouseLeave={() => {
-          setDropdown(false);
-        }}
-      >
+      <HeadWrap>
         <h1 className='logo'>
           <Link to='./'>
             <img src={LogoGray} alt='Logo-Gray' />
@@ -101,7 +91,6 @@ const Head = () => {
             );
           })}
         </NavWrap>
-        {dropdown && <SubNav />}
       </HeadWrap>
     </HeadNavBlock>
   );
