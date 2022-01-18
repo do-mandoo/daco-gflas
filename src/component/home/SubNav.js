@@ -1,25 +1,36 @@
 import React from 'react';
 import { useState } from 'react';
 import styled from 'styled-components';
-import { navItems1, navItems2 } from './NavbarItems';
+import { navItems1, navItems2, navItems3, navItems4 } from './NavbarItems';
 
 const SubNavWrap = styled.div`
-  /* display: flex;
-  justify-content: flex-end; */
-  /* width: 100%; */
   ul,
   li {
     list-style: none;
   }
-  ul {
+  .subNavMenu,
+  .subNavMenuClicked {
+    position: relative;
     background-color: #fff;
+    display: flex;
+    justify-content: center;
+    padding-bottom: 5px;
+    /* position: relative; */
   }
   li {
-    /* background-color: yellowgreen; */
     color: #000;
+  }
+  .subNavLists {
+    display: flex;
+    /* background-color: red; */
+    margin-left: 190px;
+  }
+  .subNavList {
+    /* background-color: green; */
   }
   .subNavMenu {
     width: 100%;
+    /* height: 400px; */
     position: absolute;
     top: 53px;
     left: 0;
@@ -41,12 +52,44 @@ const SubNav = () => {
         className={dropdown ? 'subNavMenuClicked' : 'subNavMenu'}
         onClick={() => setDropdown(!dropdown)}
       >
-        {navItems1.map(item => {
-          return <li key={item.id}>{item.title}</li>;
-        })}
-        {/* {navItems2.map(item => {
-          return <li key={item.id}>{item.titie}</li>;
-        })} */}
+        <li className='subNavLists'>
+          <ul className='subNavList'>
+            {navItems1.map(item => {
+              return (
+                <li className='list1' key={item.id}>
+                  {item.title}
+                </li>
+              );
+            })}
+          </ul>
+          <ul>
+            {navItems2.map(item => {
+              return (
+                <li className='list2' key={item.id}>
+                  {item.title}
+                </li>
+              );
+            })}
+          </ul>
+          <ul>
+            {navItems3.map(item => {
+              return (
+                <li className='list3' key={item.id}>
+                  {item.title}
+                </li>
+              );
+            })}
+          </ul>
+          <ul>
+            {navItems4.map(item => {
+              return (
+                <li className='list4' key={item.id}>
+                  {item.title}
+                </li>
+              );
+            })}
+          </ul>
+        </li>
       </ul>
     </SubNavWrap>
   );

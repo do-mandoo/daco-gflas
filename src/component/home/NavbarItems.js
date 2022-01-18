@@ -43,30 +43,30 @@ export const navItems1 = [
     path: './',
     cName: 'subNavItem',
   },
-  {
-    id: 4,
-    title: 'Cancerase®',
-    path: './',
-    cName: 'subNavItem',
-  },
-  {
-    id: 5,
-    title: 'PDB Platform',
-    path: './',
-    cName: 'subNavItem',
-  },
-  {
-    id: 6,
-    title: 'Non-GMO Edition',
-    path: './',
-    cName: 'subNavItem',
-  },
-  {
-    id: 7,
-    title: 'Popeline',
-    path: './',
-    cName: 'subNavItem',
-  },
+  // {
+  //   id: 4,
+  //   title: 'Cancerase®',
+  //   path: './',
+  //   cName: 'subNavItem',
+  // },
+  // {
+  //   id: 5,
+  //   title: 'PDB Platform',
+  //   path: './',
+  //   cName: 'subNavItem',
+  // },
+  // {
+  //   id: 6,
+  //   title: 'Non-GMO Edition',
+  //   path: './',
+  //   cName: 'subNavItem',
+  // },
+  // {
+  //   id: 7,
+  //   title: 'Popeline',
+  //   path: './',
+  //   cName: 'subNavItem',
+  // },
 ];
 export const navItems2 = [
   {
