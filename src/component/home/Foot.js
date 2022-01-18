@@ -3,8 +3,10 @@ import styled from 'styled-components';
 import LogoFooter from '../../image/logoFooter.png';
 
 const FootWrap = styled.div`
+  box-sizing: border-box;
+  /* overflow: hidden; */
   width: 100%;
-  height: 200px;
+  height: 230px;
   background-color: #333;
   .footerBlock {
     display: flex;
