@@ -1,6 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { FaTrash, FaInfoCircle } from 'react-icons/fa';
+import { useEffect } from 'react';
+import client from '../../api/client';
 // import ExampleInputValue from '../dataEx/ExampleInputValue';
 
 const TargetWrap = styled.section`
@@ -18,21 +20,6 @@ const SelectOption = styled.article`
   /* background-color: tomato; */
   display: flex;
   margin-bottom: 5px;
-`;
-
-const ChooseInput = styled.article`
-  /* background-color: skyblue; */
-  display: none;
-  input {
-    font-size: 14px;
-    width: 100%;
-    padding: 6px 2px;
-    border: 1px solid #ced4da;
-    border-radius: 5px;
-    line-height: 20px;
-    background-color: #e9ecef;
-    /* border: 0; */
-  }
 `;
 
 const TextArea = styled.article`
@@ -68,8 +55,8 @@ const TextArea = styled.article`
       padding: 5px 0;
       width: 100px;
       position: absolute;
-      bottom: -35px;
-      right: 0;
+      bottom: 4px;
+      right: -100px;
     }
   }
   .showValueBlock {
@@ -102,54 +89,16 @@ const TextArea = styled.article`
   }
 `;
 
-const DropFile = styled.article`
-  background-color: pink;
-  display: none;
-`;
-
-const AcceptedTargetFormats = styled.article`
-  /* background-color: orange; */
-  /* width: 100%; */
-  h5 {
-    margin: 0;
-    margin-bottom: 5px;
+const ResultTable = styled.article`
+  border: 1px solid red;
+  margin-bottom: 20px;
+  table,
+  th,
+  td {
+    border: 1px solid #eee;
   }
-  .acceptedChildBlock {
-    display: flex;
-    margin-left: 15px;
-  }
-  .zone {
-    margin-right: 20px;
-    flex-grow: 1;
-  }
-  .IDZone {
-    /* background-color: skyblue; */
-  }
-  .SequenceZone {
-    /* background-color: pink; */
-    /* margin-right: 20px; */
-    /* flex-grow: 1; */
-  }
-  .CoordinatiesZone {
-    /* background-color: yellowgreen; */
-    /* flex-grow: 1; */
-    margin-right: 0;
-  }
-  .eachChild {
-    line-height: 22px;
-    span:nth-child(1) {
-      /* color: red; */
-      font-weight: 600;
-      margin-right: 2px;
-    }
-    span:nth-child(2) {
-      /* color: blue; */
-      vertical-align: -2px;
-    }
-    div {
-      font-size: 14px;
-      margin-bottom: 8px;
-    }
+  thead > tr > th {
+    padding: 10px;
   }
 `;
 
@@ -164,7 +113,34 @@ const Main1Target = ({ handleSubmit, postSequence, setPostSequence, data }) => {
     }
     setPostSequence(eletar.value);
   };
+  const [gflasDataArticles, setGflasDataArticles] = useState(null);
+  const [loading, setLoading] = useState(false);
+  useEffect(() => {
+    const fetchData = async () => {
+      setLoading(true);
+      try {
+        const res = await client.get('/hello');
+        setGflasDataArticles(res);
+      } catch (error) {
+        console.log(error, '데이터가져오기 오류');
+      }
+      setLoading(false);
+    };
+    fetchData();
+  }, []);
 
+  // // 대기중일 떄
+  // if (loading) {
+  //   return ;
+  // }
+
+  /* 아직 gflasDataArticle값이 설정되지 않았을 때. === 유효하지 않을 때
+    // <ResultTable/>에 {gflasDataArticles? '':null}로 삼항조건연산자를 사용함. 둘 다 같은 의미라고 생각했기 때문.
+  if (!gflasDataArticles) {
+    return null;
+  } */
+
+  // gflasDataArticle값이 유효할 때
   return (
     <TargetWrap>
       <div>
@@ -183,27 +159,15 @@ const Main1Target = ({ handleSubmit, postSequence, setPostSequence, data }) => {
             <label htmlFor='targetUploadFile'>Upload file</label>
           </div>
         </SelectOption>
-        <ChooseInput>
-          <input autoComplete='off' placeholder='Choose a reference genome above to enable.' />
-        </ChooseInput>
         <TextArea>
           <form onSubmit={handleSubmit}>
-            {/* <input
-              className='valueInput'
-              rows='10'
-              // maxLength='1000'
-              value={postSequence}
-              // spellCheck='false'
-              placeholder='Enter up to 500 target IDs.'
-              onChange={onChange}
-            /> */}
             <textarea
               className='valueArea'
               rows='10'
               // // maxLength='1000'
               value={postSequence}
               spellCheck='false'
-              placeholder='Enter up to 500 target IDs.'
+              placeholder='영문만 입력이 가능합니다. 입력이 안 될 경우 한/영 키를 누른 뒤 다시 입력해주세요.'
               onChange={onChange}
             />
             <button className='enterValueBtn' type='submit'>
@@ -211,102 +175,54 @@ const Main1Target = ({ handleSubmit, postSequence, setPostSequence, data }) => {
             </button>
           </form>
           <div className='showValueBlock'>
-            <div className='valueH'>입력된 값: </div>
-            <div className='showEnterValue'>
+            {/* <div className='valueH'>결과 값: </div> */}
+            {/* <div className='showEnterValue'>
               {data &&
                 data.map(da => <div key={da.data.result}>{da.data.result.toUpperCase()}</div>)}
-            </div>
+            </div> */}
           </div>
         </TextArea>
-        <DropFile>
-          <form>
-            <div>drop file here or select a file</div>
-            <input type='file' id='fileUpload' />
-          </form>
-          <div>
-            <FaTrash />
-          </div>
-        </DropFile>
-        <AcceptedTargetFormats>
-          <div>Accepted target formats</div>
-          <div className='acceptedChildBlock'>
-            <div className='IDZone zone'>
-              <h5>
-                <u>ID</u>
-              </h5>
-              <div className='idChild1 eachChild'>
-                <span>Gene Symbol</span>
-                <span>
-                  <FaInfoCircle />
-                </span>
-                <div>CDC5L, Brca1</div>
-              </div>
-              <div className='idChild2 eachChild'>
-                <span>Gene ID</span>
-                <span>
-                  <FaInfoCircle />
-                </span>
-                <div>988</div>
-              </div>
-              <div className='idChild3 eachChild'>
-                <span>Transcript ID</span>
-                <span>
-                  <FaInfoCircle />
-                </span>
-                <div>NM_014911,NM_014911.1</div>
-              </div>
-            </div>
-            <div className='SequenceZone zone'>
-              <h5>
-                <u>Sequences</u>
-              </h5>
-              <div className='seqChild1 eachChild'>
-                <span>Raw</span>
-                <span>
-                  <FaInfoCircle />
-                </span>
-                <div>TTGTAGCATCGCAGGTAGCAAACAGTTACTAGG</div>
-              </div>
-              <div className='seqChild2 eachChild'>
-                <span>FASTA</span>
-                <span>
-                  <FaInfoCircle />
-                </span>
-                <div>
-                  &gt;seq0
-                  <br />
-                  TTGTAGCATCGCAGGTAGCAAACAGTTACTAGG
-                </div>
-              </div>
-            </div>
-            <div className='CoordinatiesZone zone'>
-              <h5>
-                <u>Coordinates</u>
-              </h5>
-              <div className='coChild1 eachChild'>
-                <span>Point</span>
-                <span>
-                  <FaInfoCircle />
-                </span>
-                <div>NC_000001.11:+:127140001</div>
-              </div>
-              <div className='coChild2 eachChild'>
-                <span>Range</span>
-                <span>
-                  <FaInfoCircle />
-                </span>
-                <div>NC_000001.11:-:15000-16000</div>
-              </div>
-              <div className='coChild3 eachChild'>
-                <span>Ranges</span>
-                <span>
-                  <FaInfoCircle />
-                </span>
-                <div>NC_000001.11:-:12000-13000;15000-16000</div>
-              </div>
-            </div>
-          </div>
-        </AcceptedTargetFormats>
+        {loading ? (
+          <ResultTable>데이터 가져오기 로딩 중...</ResultTable>
+        ) : (
+          <ResultTable>
+            {/* gflasDataArticle값이 유효하면 테이블을 보여주고, 아니라면 null을 반환한다. */}
+            {/* {gflasDataArticles ? ( */}
+            <table>
+              <thead>
+                <tr>
+                  <th>gRNA</th>
+                  <th>PAM</th>
+                  <th>Strand</th>
+                  <th>DECO Score</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>aaa</td>
+                  <td>aaa</td>
+                  <td>aaa</td>
+                  <td>aaa</td>
+                </tr>
+                {/* 데이터값이 유효하면 map배열 연산자로 풀어서 그려주기. 위 아래의 <tr><td>abab</td></tr>의 축약.
+                {datas.map(data => {
+                return (
+                  <tr>
+                    <td>{data.name}</td>
+                  </tr>
+                );
+              })} */}
+                <tr>
+                  <td>bbb</td>
+                  <td>bbb</td>
+                  <td>bbb</td>
+                  <td>bbb</td>
+                </tr>
+              </tbody>
+            </table>
+            {/* ) : null} */}
+          </ResultTable>
+        )}
       </div>
     </TargetWrap>
   );
