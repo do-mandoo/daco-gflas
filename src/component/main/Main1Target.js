@@ -53,16 +53,16 @@ const TextArea = styled.article`
   margin-bottom: 40px;
   form {
     position: relative;
-    /* .valueArea {
+    .valueArea {
       height: 140px;
       width: 350px;
       font-size: 16px;
       line-height: 20px;
       letter-spacing: 1.5px;
-      /* resize: none; */
-    /* padding: 15px 20px;
-      text-transform: uppercase; */
-    /* } */
+      resize: none;
+      padding: 15px 20px;
+      text-transform: uppercase;
+    }
     .enterValueBtn {
       margin-top: 5px;
       padding: 5px 0;
@@ -76,6 +76,7 @@ const TextArea = styled.article`
     display: flex;
     flex-flow: column wrap;
     margin-left: 10px;
+    width: 200px;
     .valueH {
       color: #fff;
       margin-top: -10px;
@@ -188,7 +189,7 @@ const Main1Target = ({ handleSubmit, postSequence, setPostSequence, data }) => {
         <TextArea>
           <form onSubmit={handleSubmit}>
             {/* <input
-              className='valueArea'
+              className='valueInput'
               rows='10'
               // maxLength='1000'
               value={postSequence}
@@ -199,7 +200,7 @@ const Main1Target = ({ handleSubmit, postSequence, setPostSequence, data }) => {
             <textarea
               className='valueArea'
               rows='10'
-              maxLength='1000'
+              // // maxLength='1000'
               value={postSequence}
               spellCheck='false'
               placeholder='Enter up to 500 target IDs.'
