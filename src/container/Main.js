@@ -96,10 +96,10 @@ const Main = () => {
             postSequence={postSequence}
             setPostSequence={setPostSequence}
           />
-          <Main2Quota />
+          {/* <Main2Quota />
           <Main3Unpicked />
           <hr />
-          <Main4EndBtn />
+          <Main4EndBtn /> */}
         </div>
         <div className='rightWrap'>
           <Side0Btn />

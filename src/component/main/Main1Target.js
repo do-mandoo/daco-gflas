@@ -56,7 +56,7 @@ const TextArea = styled.article`
       width: 100px;
       position: absolute;
       bottom: 4px;
-      right: -100px;
+      right: -110px;
     }
   }
   .showValueBlock {
@@ -90,15 +90,20 @@ const TextArea = styled.article`
 `;
 
 const ResultTable = styled.article`
-  border: 1px solid red;
+  background-color: #eee;
+  min-height: 300px;
   margin-bottom: 20px;
-  table,
-  th,
-  td {
-    border: 1px solid #eee;
+  th {
+    border-bottom: 1px solid #000;
+    padding: 10px 0;
+    /* margin: 0; */
+    width: 140px;
   }
-  thead > tr > th {
-    padding: 10px;
+  tbody > tr:nth-child(1) {
+    background-color: #ccc;
+  }
+  tbody > tr:nth-child(2) {
+    background-color: #aaa;
   }
 `;
 
@@ -115,19 +120,19 @@ const Main1Target = ({ handleSubmit, postSequence, setPostSequence, data }) => {
   };
   const [gflasDataArticles, setGflasDataArticles] = useState(null);
   const [loading, setLoading] = useState(false);
-  useEffect(() => {
-    const fetchData = async () => {
-      setLoading(true);
-      try {
-        const res = await client.get('/hello');
-        setGflasDataArticles(res);
-      } catch (error) {
-        console.log(error, '데이터가져오기 오류');
-      }
-      setLoading(false);
-    };
-    fetchData();
-  }, []);
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     setLoading(true);
+  //     try {
+  //       const res = await client.get('/hello');
+  //       setGflasDataArticles(res);
+  //     } catch (error) {
+  //       console.log(error, '데이터가져오기 오류');
+  //     }
+  //     setLoading(false);
+  //   };
+  //   fetchData();
+  // }, []);
 
   // // 대기중일 떄
   // if (loading) {
@@ -182,29 +187,29 @@ const Main1Target = ({ handleSubmit, postSequence, setPostSequence, data }) => {
             </div> */}
           </div>
         </TextArea>
-        {loading ? (
+        {/* {loading ? (
           <ResultTable>데이터 가져오기 로딩 중...</ResultTable>
-        ) : (
-          <ResultTable>
-            {/* gflasDataArticle값이 유효하면 테이블을 보여주고, 아니라면 null을 반환한다. */}
-            {/* {gflasDataArticles ? ( */}
-            <table>
-              <thead>
-                <tr>
-                  <th>gRNA</th>
-                  <th>PAM</th>
-                  <th>Strand</th>
-                  <th>DECO Score</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>aaa</td>
-                  <td>aaa</td>
-                  <td>aaa</td>
-                  <td>aaa</td>
-                </tr>
-                {/* 데이터값이 유효하면 map배열 연산자로 풀어서 그려주기. 위 아래의 <tr><td>abab</td></tr>의 축약.
+        ) : ( */}
+        <ResultTable>
+          {/* gflasDataArticle값이 유효하면 테이블을 보여주고, 아니라면 null을 반환한다. */}
+          {/* {gflasDataArticles ? ( */}
+          <table>
+            <thead>
+              <tr>
+                <th>gRNA</th>
+                <th>PAM</th>
+                <th>Strand</th>
+                <th>DECO Score</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>aaa</td>
+                <td>aaa</td>
+                <td>aaa</td>
+                <td>aaa</td>
+              </tr>
+              {/* 데이터값이 유효하면 map배열 연산자로 풀어서 그려주기. 위 아래의 <tr><td>abab</td></tr>의 축약.
                 {datas.map(data => {
                 return (
                   <tr>
@@ -212,17 +217,17 @@ const Main1Target = ({ handleSubmit, postSequence, setPostSequence, data }) => {
                   </tr>
                 );
               })} */}
-                <tr>
-                  <td>bbb</td>
-                  <td>bbb</td>
-                  <td>bbb</td>
-                  <td>bbb</td>
-                </tr>
-              </tbody>
-            </table>
-            {/* ) : null} */}
-          </ResultTable>
-        )}
+              <tr>
+                <td>bbb</td>
+                <td>bbb</td>
+                <td>bbb</td>
+                <td>bbb</td>
+              </tr>
+            </tbody>
+          </table>
+          {/* ) : null} */}
+        </ResultTable>
+        {/* )} */}
       </div>
     </TargetWrap>
   );
