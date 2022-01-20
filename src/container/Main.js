@@ -60,10 +60,10 @@ const Main = () => {
   // }, []);
 
   // 검색
-  useEffect(() => {
-    const filterResult = data.filter(da => da.data.result.includes(search.toLowerCase()));
-    setSearchResult(filterResult.reverse());
-  }, [data, search]);
+  // useEffect(() => {
+  //   const filterResult = data.filter(da => da.data.result.includes(search.toLowerCase()));
+  //   setSearchResult(filterResult.reverse());
+  // }, [data, search]);
 
   // 정보입력
   const handleSubmit = async e => {

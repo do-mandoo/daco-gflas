@@ -90,25 +90,29 @@ const TextArea = styled.article`
 `;
 
 const ResultTable = styled.article`
-  background-color: #eee;
+  box-sizing: border-box;
+  max-width: 800px;
+  background-color: #fff;
   min-height: 300px;
   margin-bottom: 20px;
+  overflow: scroll;
   th {
-    border-bottom: 1px solid #000;
+    border-bottom: 2px solid #000;
     padding: 10px 0;
     /* margin: 0; */
     width: 140px;
   }
-  tbody > tr:nth-child(1) {
-    background-color: #ccc;
-  }
-  tbody > tr:nth-child(2) {
-    background-color: #aaa;
+  td {
+    border-bottom: 1px dashed #aaa;
+    padding: 3px 5px;
+    width: 200px;
+    /* overflow: scroll; */
   }
 `;
 
 const Main1Target = ({ handleSubmit, postSequence, setPostSequence, data }) => {
   console.log('메인1타겟의 DATA', data);
+
   // const engOnly = /^[A-Z]/g; //영문자 대문자만 허용.
   const onChange = e => {
     const engOnly = /[^a-zA-Z]/g;
@@ -118,26 +122,32 @@ const Main1Target = ({ handleSubmit, postSequence, setPostSequence, data }) => {
     }
     setPostSequence(eletar.value);
   };
-  const [gflasDataArticles, setGflasDataArticles] = useState(null);
-  const [loading, setLoading] = useState(false);
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     setLoading(true);
-  //     try {
-  //       const res = await client.get('/hello');
-  //       setGflasDataArticles(res);
-  //     } catch (error) {
-  //       console.log(error, '데이터가져오기 오류');
-  //     }
-  //     setLoading(false);
-  //   };
-  //   fetchData();
-  // }, []);
 
-  // // 대기중일 떄
-  // if (loading) {
-  //   return ;
-  // }
+  // const arrayHName = data[0].data;
+  // console.log(arrayHName, 3434);
+
+  const renderTrTd = () => {
+    if (data) {
+      let countLength = data[0].data.grna.length;
+      console.log(countLength, 'count,길이');
+
+      const newArray = ['grna', 'pam', 'score', 'strand'];
+      console.log(newArray, 'newarray304934');
+
+      for (let i = 0; i < countLength; i++) {
+        console.log(data.data[i], 'i9222222240');
+      }
+    } else {
+      return null;
+    }
+  };
+
+  const [loading, setLoading] = useState(false);
+
+  // 대기중일 떄
+  if (loading) {
+    return;
+  }
 
   /* 아직 gflasDataArticle값이 설정되지 않았을 때. === 유효하지 않을 때
     // <ResultTable/>에 {gflasDataArticles? '':null}로 삼항조건연산자를 사용함. 둘 다 같은 의미라고 생각했기 때문.
@@ -187,47 +197,130 @@ const Main1Target = ({ handleSubmit, postSequence, setPostSequence, data }) => {
             </div> */}
           </div>
         </TextArea>
-        {/* {loading ? (
+        {loading ? (
           <ResultTable>데이터 가져오기 로딩 중...</ResultTable>
-        ) : ( */}
-        <ResultTable>
-          {/* gflasDataArticle값이 유효하면 테이블을 보여주고, 아니라면 null을 반환한다. */}
-          {/* {gflasDataArticles ? ( */}
-          <table>
-            <thead>
-              <tr>
-                <th>gRNA</th>
-                <th>PAM</th>
-                <th>Strand</th>
-                <th>DECO Score</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>aaa</td>
-                <td>aaa</td>
-                <td>aaa</td>
-                <td>aaa</td>
-              </tr>
-              {/* 데이터값이 유효하면 map배열 연산자로 풀어서 그려주기. 위 아래의 <tr><td>abab</td></tr>의 축약.
-                {datas.map(data => {
-                return (
+        ) : (
+          <ResultTable>
+            {/* gflasDataArticle값이 유효하면 테이블을 보여주고, 아니라면 null을 반환한다. */}
+            {data ? (
+              <table>
+                <thead>
                   <tr>
-                    <td>{data.name}</td>
+                    <th>gRNA</th>
+                    <th>PAM</th>
+                    <th>Strand</th>
+                    <th>DECO Score</th>
                   </tr>
-                );
-              })} */}
-              <tr>
-                <td>bbb</td>
-                <td>bbb</td>
-                <td>bbb</td>
-                <td>bbb</td>
-              </tr>
-            </tbody>
-          </table>
-          {/* ) : null} */}
-        </ResultTable>
-        {/* )} */}
+                </thead>
+                <tbody>
+                  {/* <tr>
+                    <td>aaa</td>
+                    <td>aaa</td>
+                    <td>aaa</td>
+                    <td>aaa</td>
+                  </tr> */}
+                  {/* <td>데이터값이 유효하면 map배열 연산자로 풀어서 그려주기. 위 아래의</td>의 축약. */}
+                  {/* {data.map(da => {
+                    return (
+                      <>
+                        <tr>
+                          {da.data.grna.map(grna => {
+                            return <td>{grna}</td>;
+                          })}
+                          {da.data.pam.map(pam => {
+                            return <td>{pam}</td>;
+                          })}
+                          {da.data.strand.map(strand => {
+                            return <td>{strand}</td>;
+                          })}
+                          {da.data.score.map(score => {
+                            return <td>{score}</td>;
+                          })}
+                        </tr>
+
+                        <td>{da.data.strand}</td>
+                        <td>{da.data.score}</td>
+                        {da.data.score.map(pa => {
+                          console.log(pa, 'paooaopap');
+                          <td>{pa}</td>;
+                        })}
+                      </>
+                    );
+                  })} */}
+                  {/* {renderTrTd()} */}
+                  {data.map(da => {
+                    console.log(da, 'dadada');
+                    return (
+                      <>
+                        {renderTrTd()}
+                        <tr>
+                          <td>{da.data.grna[0]}</td>
+                          <td>{da.data.pam[0]}</td>
+                          <td>{da.data.strand[0]}</td>
+                          <td>{da.data.score[0]}</td>
+                        </tr>
+                        <tr>
+                          <td>{da.data.grna[1]}</td>
+                          <td>{da.data.pam[1]}</td>
+                          <td>{da.data.strand[1]}</td>
+                          <td>{da.data.score[1]}</td>
+                        </tr>
+                        <tr>
+                          <td>{da.data.grna[2]}</td>
+                          <td>{da.data.pam[2]}</td>
+                          <td>{da.data.strand[2]}</td>
+                          <td>{da.data.score[2]}</td>
+                        </tr>
+                        <tr>
+                          <td>{da.data.grna[3]}</td>
+                          <td>{da.data.pam[3]}</td>
+                          <td>{da.data.strand[3]}</td>
+                          <td>{da.data.score[3]}</td>
+                        </tr>
+                        <tr>
+                          <td>{da.data.grna[4]}</td>
+                          <td>{da.data.pam[4]}</td>
+                          <td>{da.data.strand[4]}</td>
+                          <td>{da.data.score[4]}</td>
+                        </tr>
+                        <tr>
+                          <td>{da.data.grna[5]}</td>
+                          <td>{da.data.pam[5]}</td>
+                          <td>{da.data.strand[5]}</td>
+                          <td>{da.data.score[5]}</td>
+                        </tr>
+                        <tr>
+                          <td>{da.data.grna[6]}</td>
+                          <td>{da.data.pam[6]}</td>
+                          <td>{da.data.strand[6]}</td>
+                          <td>{da.data.score[6]}</td>
+                        </tr>
+                        <tr>
+                          <td>{da.data.grna[7]}</td>
+                          <td>{da.data.pam[7]}</td>
+                          <td>{da.data.strand[7]}</td>
+                          <td>{da.data.score[7]}</td>
+                        </tr>
+                        <tr>
+                          <td>{da.data.grna[8]}</td>
+                          <td>{da.data.pam[8]}</td>
+                          <td>{da.data.strand[8]}</td>
+                          <td>{da.data.score[8]}</td>
+                        </tr>
+                        <tr>
+                          <td>{da.data.grna[9]}</td>
+                          <td>{da.data.pam[9]}</td>
+                          <td>{da.data.strand[9]}</td>
+                          <td>{da.data.score[9]}</td>
+                        </tr>
+                      </>
+                    );
+                  })}
+                </tbody>
+              </table>
+            ) : null}
+          </ResultTable>
+        )}
       </div>
     </TargetWrap>
   );
