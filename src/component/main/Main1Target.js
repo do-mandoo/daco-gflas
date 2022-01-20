@@ -127,19 +127,38 @@ const Main1Target = ({ handleSubmit, postSequence, setPostSequence, data }) => {
   // console.log(arrayHName, 3434);
 
   const renderTrTd = () => {
-    if (data) {
-      let countLength = data[0].data.grna.length;
-      console.log(countLength, 'count,길이');
+    let countLength = data[0].data.grna.length;
+    console.log(countLength, 'count,길이');
 
-      const newArray = ['grna', 'pam', 'score', 'strand'];
-      console.log(newArray, 'newarray304934');
+    const newArray = ['grna', 'pam', 'score', 'strand'];
+    console.log(newArray, 'newarray304934');
 
-      for (let i = 0; i < countLength; i++) {
-        console.log(data.data[i], 'i9222222240');
-      }
-    } else {
-      return null;
+    for (let i = 0; i < countLength; i++) {
+      console.log(data[0].data.grna[i], 'i9222222240');
+      <tr>
+        <td>{data[0].data.grna[i]}</td>
+        <td>{data[0].data.pam[i]}</td>
+        <td>{data[0].data.strand[i]}</td>
+        <td>{data[0].data.score[i]}</td>
+      </tr>;
     }
+
+    // for (let i = 0; i < countLength; i++) {
+    // console.log(i, 'i--?'); // index 0 1 2 3 4 5
+    // for (let j = 0; (j = i); j++) {
+    // console.log(j, 'j00?');
+    // return (
+    //   <>
+    //     <tr>
+    //       <td>{data[0].data.grna[j]}</td>
+    //       <td>{data[0].data.pam[i]}</td>
+    //       <td>{data[0].data.strand[j]}</td>
+    //       <td>{data[0].data.score[j]}</td>
+    //     </tr>
+    //   </>
+    // );
+    // }
+    // }
   };
 
   const [loading, setLoading] = useState(false);
@@ -247,19 +266,19 @@ const Main1Target = ({ handleSubmit, postSequence, setPostSequence, data }) => {
                       </>
                     );
                   })} */}
-                  {/* {renderTrTd()} */}
                   {data.map(da => {
                     console.log(da, 'dadada');
                     return (
                       <>
                         {renderTrTd()}
-                        <tr>
-                          <td>{da.data.grna[0]}</td>
-                          <td>{da.data.pam[0]}</td>
-                          <td>{da.data.strand[0]}</td>
-                          <td>{da.data.score[0]}</td>
-                        </tr>
-                        <tr>
+
+                        {/* <tr>
+                          {da.map(d => {
+                            console.log(d);
+                            return <td>{d.data}</td>;
+                          })}
+                        </tr> */}
+                        {/* <tr>
                           <td>{da.data.grna[1]}</td>
                           <td>{da.data.pam[1]}</td>
                           <td>{da.data.strand[1]}</td>
@@ -282,8 +301,8 @@ const Main1Target = ({ handleSubmit, postSequence, setPostSequence, data }) => {
                           <td>{da.data.pam[4]}</td>
                           <td>{da.data.strand[4]}</td>
                           <td>{da.data.score[4]}</td>
-                        </tr>
-                        <tr>
+                        </tr> */}
+                        {/* <tr>
                           <td>{da.data.grna[5]}</td>
                           <td>{da.data.pam[5]}</td>
                           <td>{da.data.strand[5]}</td>
@@ -312,7 +331,7 @@ const Main1Target = ({ handleSubmit, postSequence, setPostSequence, data }) => {
                           <td>{da.data.pam[9]}</td>
                           <td>{da.data.strand[9]}</td>
                           <td>{da.data.score[9]}</td>
-                        </tr>
+                        </tr> */}
                       </>
                     );
                   })}
