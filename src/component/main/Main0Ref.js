@@ -8,7 +8,6 @@ const RefWrap = styled.section`
     font-size: 22px;
     font-weight: 500;
   }
-  /* background-color: #eee; */
   display: flex;
   article {
     margin-right: 30px;
@@ -19,112 +18,43 @@ const RefWrap = styled.section`
     width: 15px;
     height: 15px;
   }
-  label > span {
-    margin-left: 3px;
-    font-size: 12px;
-    /* color: #6c757d; */
+  .casWrap,
+  .modelsWrap {
+    margin-right: 50px;
   }
-  div {
+  .casWrap > div,
+  .modelsWrap > div {
     display: flex;
     justify-content: flex-start;
     align-items: center;
   }
 `;
 
-const Reference = styled.article`
-  /* background-color: yellowgreen; */
-`;
-
-const Mechanism = styled.article`
-  /* background-color: skyblue; */
-`;
-
-const Enzyme = styled.article`
-  /* background-color: #aaa; */
-`;
-
 const Main0Ref = () => {
   return (
     <RefWrap>
-      <Reference>
-        <h2>Reference Genome</h2>
+      <div className='casWrap'>
+        <h2>Cas9/12</h2>
         <div>
-          <input type='radio' id='ref0' name='refCheck' />
-          <label htmlFor='ref0'>
-            Human GRCh38<span>(NCBI RefSeq v.109.20210514)</span>
-          </label>
+          <input type='radio' id='cas9' name='casCheck' />
+          <label htmlFor='cas9'>Cas9</label>
         </div>
         <div>
-          <input type='radio' id='ref1' name='refCheck' />
-          <label htmlFor='ref1'>
-            Human GRCh38<span>(Ensembl v.104))</span>
-          </label>
+          <input type='radio' id='cas12' name='casCheck' />
+          <label htmlFor='cas12'>Cas12</label>
+        </div>
+      </div>
+      <div className='modelsWrap'>
+        <h2>Models</h2>
+        <div>
+          <input type='radio' id='tranceformer' name='modelsCheck' />
+          <label htmlFor='tranceformer'>Transformer</label>
         </div>
         <div>
-          <input type='radio' id='ref2' name='refCheck' />
-          <label htmlFor='ref2'>
-            Human GRCh37<span>(NCBI RefSeq v.105.20201022)</span>
-          </label>
+          <input type='radio' id='CNNBased' name='modelsCheck' />
+          <label htmlFor='CNNBased'>CNN based</label>
         </div>
-        <div>
-          <input type='radio' id='ref3' name='refCheck' />
-          <label htmlFor='ref3'>
-            Mouse GRCm38 <span>(NCBI RefSeq v.108)</span>
-          </label>
-        </div>
-        <div>
-          <input type='radio' id='ref4' name='refCheck' />
-          <label htmlFor='ref4'>
-            Mouse GRCm38 <span>(Ensembl v.102)</span>
-          </label>
-        </div>
-        <div>
-          <input type='radio' id='ref5' name='refCheck' />
-          <label htmlFor='ref5'>
-            Rat Rnor_6.0 <span>(NCBI RefSeq v.106)</span>
-          </label>
-        </div>
-      </Reference>
-      <Mechanism>
-        <h2>Mechanism</h2>
-        <div>
-          <input type='radio' id='mec0' name='mecCheck' />
-          <label htmlFor='mec0'>CRISPRko</label>
-        </div>
-        <div>
-          <input type='radio' id='mec1' name='mecCheck' />
-          <label htmlFor='mec1'>CRISPRa</label>
-        </div>
-        <div>
-          <input type='radio' id='mec2' name='mecCheck' />
-          <label htmlFor='mec2'>CRISPRi</label>
-        </div>
-      </Mechanism>
-      <Enzyme>
-        <h2>Enzyme</h2>
-        <div>
-          <input type='radio' id='enz0' name='enzymeCheck' />
-          <label htmlFor='enz0'>
-            SpyoCas9<span>(NGG)</span>
-          </label>
-        </div>
-        <div>
-          <input type='radio' id='enz1' name='enzymeCheck' />
-          <label htmlFor='enz1'>
-            SaurCas9<span>(NNGRR)</span>
-          </label>
-        </div>
-        <div>
-          <input type='radio' id='enz2' name='enzymeCheck' />
-          <label htmlFor='enz2'>
-            AsCas12a<span>(TTTV)</span>
-          </label>
-        </div>
-        <div>
-          <input type='radio' id='enz3' name='enzymeCheck' />
-          <label htmlFor='enz3'>enAsCas12a</label>
-        </div>
-      </Enzyme>
+      </div>
     </RefWrap>
   );
 };

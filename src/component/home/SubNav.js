@@ -45,13 +45,9 @@ const SubNavWrap = styled.div`
 `;
 
 const SubNav = () => {
-  const [dropdown, setDropdown] = useState(false);
   return (
     <SubNavWrap>
-      <ul
-        className={dropdown ? 'subNavMenuClicked' : 'subNavMenu'}
-        onClick={() => setDropdown(!dropdown)}
-      >
+      <ul className='subNavMenu'>
         <li className='subNavLists'>
           <ul className='subNavList'>
             {navItems1.map(item => {
