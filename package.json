@@ -55,5 +55,6 @@
     "prettier": "^2.5.1"
   },
   "homepage": "./",
-  "proxy": "http://34.64.135.42:5000"
+  "proxy": "http://34.64.207.232.42:5000",
+  "allowedHosts": "all"
 }
