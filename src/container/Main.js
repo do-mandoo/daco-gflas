@@ -37,7 +37,7 @@ const MainWrap = styled.div`
 `;
 
 const Main = () => {
-  const [data, setData] = useState([]);
+  const [datas, setDatas] = useState([]);
   const [search, setSearch] = useState('');
   const [searchResult, setSearchResult] = useState([]);
   const [postSequence, setPostSequence] = useState('');
@@ -75,8 +75,8 @@ const Main = () => {
     try {
       const res = await client.post('/hello', searchingData);
       console.log(res, 'res를 봅시다. example 55번줄');
-      const allPost = [...data, res];
-      setData(allPost);
+      const allPost = [...datas, res];
+      setDatas(allPost);
       // setSearch('');
       setPostSequence('');
       history.push('/');
@@ -91,8 +91,8 @@ const Main = () => {
           <Main0Ref />
           <Main1Target
             handleSubmit={handleSubmit}
-            data={data}
-            setData={setData}
+            datas={datas}
+            setDatas={setDatas}
             postSequence={postSequence}
             setPostSequence={setPostSequence}
           />

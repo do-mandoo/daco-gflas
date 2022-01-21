@@ -92,6 +92,7 @@ const TextArea = styled.article`
 const ResultTable = styled.article`
   box-sizing: border-box;
   max-width: 800px;
+  max-height: 500px;
   background-color: #fff;
   min-height: 300px;
   margin-bottom: 20px;
@@ -110,8 +111,9 @@ const ResultTable = styled.article`
   }
 `;
 
-const Main1Target = ({ handleSubmit, postSequence, setPostSequence, data }) => {
-  console.log('메인1타겟의 DATA', data);
+const Main1Target = ({ handleSubmit, postSequence, setPostSequence, datas }) => {
+  console.log('메인1타겟의 DATA', datas);
+  console.log(datas.length, '길이');
 
   // const engOnly = /^[A-Z]/g; //영문자 대문자만 허용.
   const onChange = e => {
@@ -123,49 +125,45 @@ const Main1Target = ({ handleSubmit, postSequence, setPostSequence, data }) => {
     setPostSequence(eletar.value);
   };
 
-  // const arrayHName = data[0].data;
-  // console.log(arrayHName, 3434);
-
+  // 한땀한땀 우왕좌왕 로직.
   const renderTrTd = () => {
-    let countLength = data[0].data.grna.length;
-    console.log(countLength, 'count,길이');
+    if (datas.length === 0 && datas.data.grna > 1) {
+      // datas의 길이가 0이면 datas가 없는걸로 간주. null반환.
+      console.log('datas없음');
+      return null;
+    } else {
+      console.log('datas있음.');
 
-    const newArray = ['grna', 'pam', 'score', 'strand'];
-    console.log(newArray, 'newarray304934');
+      let datasLength = datas.length;
+      console.log(datasLength, 'datas길이');
 
-    for (let i = 0; i < countLength; i++) {
-      console.log(data[0].data.grna[i], 'i9222222240');
-      <tr>
-        <td>{data[0].data.grna[i]}</td>
-        <td>{data[0].data.pam[i]}</td>
-        <td>{data[0].data.strand[i]}</td>
-        <td>{data[0].data.score[i]}</td>
-      </tr>;
+      let countLength = datas[datas.length - 1].data.grna.length;
+      console.log(countLength, 'count길이');
+
+      let setArrayFor = [];
+
+      for (let j = 0; j < datasLength; j++) {
+        for (let i = 0; i < countLength; i++) {
+          setArrayFor.push(
+            <tr key={datas[j].data.grna.index}>
+              <td>{datas[j].data.grna[i]}</td>
+              <td>{datas[j].data.pam[i]}</td>
+              <td>{datas[j].data.strand[i]}</td>
+              <td>{datas[j].data.score[i]}</td>
+            </tr>
+          );
+        }
+      }
+      console.log('setArrayFor', setArrayFor);
+      return setArrayFor;
     }
-
-    // for (let i = 0; i < countLength; i++) {
-    // console.log(i, 'i--?'); // index 0 1 2 3 4 5
-    // for (let j = 0; (j = i); j++) {
-    // console.log(j, 'j00?');
-    // return (
-    //   <>
-    //     <tr>
-    //       <td>{data[0].data.grna[j]}</td>
-    //       <td>{data[0].data.pam[i]}</td>
-    //       <td>{data[0].data.strand[j]}</td>
-    //       <td>{data[0].data.score[j]}</td>
-    //     </tr>
-    //   </>
-    // );
-    // }
-    // }
   };
 
   const [loading, setLoading] = useState(false);
 
   // 대기중일 떄
   if (loading) {
-    return;
+    return <ResultTable>대기중..</ResultTable>;
   }
 
   /* 아직 gflasDataArticle값이 설정되지 않았을 때. === 유효하지 않을 때
@@ -221,25 +219,20 @@ const Main1Target = ({ handleSubmit, postSequence, setPostSequence, data }) => {
         ) : (
           <ResultTable>
             {/* gflasDataArticle값이 유효하면 테이블을 보여주고, 아니라면 null을 반환한다. */}
-            {data ? (
-              <table>
-                <thead>
-                  <tr>
-                    <th>gRNA</th>
-                    <th>PAM</th>
-                    <th>Strand</th>
-                    <th>DECO Score</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {/* <tr>
-                    <td>aaa</td>
-                    <td>aaa</td>
-                    <td>aaa</td>
-                    <td>aaa</td>
-                  </tr> */}
-                  {/* <td>데이터값이 유효하면 map배열 연산자로 풀어서 그려주기. 위 아래의</td>의 축약. */}
-                  {/* {data.map(da => {
+            {/* {!datas.length === 0 && ( */}
+            <table>
+              <thead>
+                <tr>
+                  <th>gRNA</th>
+                  <th>PAM</th>
+                  <th>Strand</th>
+                  <th>DECO Score</th>
+                </tr>
+              </thead>
+              <tbody>
+                {renderTrTd()};
+                {/* <td>데이터값이 유효하면 map배열 연산자로 풀어서 그려주기. 위 아래의</td>의 축약. */}
+                {/* {datas.map(da => {
                     return (
                       <>
                         <tr>
@@ -257,87 +250,16 @@ const Main1Target = ({ handleSubmit, postSequence, setPostSequence, data }) => {
                           })}
                         </tr>
 
-                        <td>{da.data.strand}</td>
-                        <td>{da.data.score}</td>
                         {da.data.score.map(pa => {
                           console.log(pa, 'paooaopap');
-                          <td>{pa}</td>;
+                          return <td>{pa}</td>;
                         })}
                       </>
                     );
                   })} */}
-                  {data.map(da => {
-                    console.log(da, 'dadada');
-                    return (
-                      <>
-                        {renderTrTd()}
-
-                        {/* <tr>
-                          {da.map(d => {
-                            console.log(d);
-                            return <td>{d.data}</td>;
-                          })}
-                        </tr> */}
-                        {/* <tr>
-                          <td>{da.data.grna[1]}</td>
-                          <td>{da.data.pam[1]}</td>
-                          <td>{da.data.strand[1]}</td>
-                          <td>{da.data.score[1]}</td>
-                        </tr>
-                        <tr>
-                          <td>{da.data.grna[2]}</td>
-                          <td>{da.data.pam[2]}</td>
-                          <td>{da.data.strand[2]}</td>
-                          <td>{da.data.score[2]}</td>
-                        </tr>
-                        <tr>
-                          <td>{da.data.grna[3]}</td>
-                          <td>{da.data.pam[3]}</td>
-                          <td>{da.data.strand[3]}</td>
-                          <td>{da.data.score[3]}</td>
-                        </tr>
-                        <tr>
-                          <td>{da.data.grna[4]}</td>
-                          <td>{da.data.pam[4]}</td>
-                          <td>{da.data.strand[4]}</td>
-                          <td>{da.data.score[4]}</td>
-                        </tr> */}
-                        {/* <tr>
-                          <td>{da.data.grna[5]}</td>
-                          <td>{da.data.pam[5]}</td>
-                          <td>{da.data.strand[5]}</td>
-                          <td>{da.data.score[5]}</td>
-                        </tr>
-                        <tr>
-                          <td>{da.data.grna[6]}</td>
-                          <td>{da.data.pam[6]}</td>
-                          <td>{da.data.strand[6]}</td>
-                          <td>{da.data.score[6]}</td>
-                        </tr>
-                        <tr>
-                          <td>{da.data.grna[7]}</td>
-                          <td>{da.data.pam[7]}</td>
-                          <td>{da.data.strand[7]}</td>
-                          <td>{da.data.score[7]}</td>
-                        </tr>
-                        <tr>
-                          <td>{da.data.grna[8]}</td>
-                          <td>{da.data.pam[8]}</td>
-                          <td>{da.data.strand[8]}</td>
-                          <td>{da.data.score[8]}</td>
-                        </tr>
-                        <tr>
-                          <td>{da.data.grna[9]}</td>
-                          <td>{da.data.pam[9]}</td>
-                          <td>{da.data.strand[9]}</td>
-                          <td>{da.data.score[9]}</td>
-                        </tr> */}
-                      </>
-                    );
-                  })}
-                </tbody>
-              </table>
-            ) : null}
+              </tbody>
+            </table>
+            {/* )} */}
           </ResultTable>
         )}
       </div>
