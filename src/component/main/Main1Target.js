@@ -3,6 +3,9 @@ import styled from 'styled-components';
 import { FaTrash, FaInfoCircle } from 'react-icons/fa';
 import { useEffect } from 'react';
 import client from '../../api/client';
+import { ClipLoader } from 'react-spinners';
+import ResultShowTable from '../mainChild/ResultShowTable';
+import SpinnerIndex from '../spinner/SpinnerIndex';
 // import ExampleInputValue from '../dataEx/ExampleInputValue';
 
 const TargetWrap = styled.section`
@@ -89,31 +92,38 @@ const TextArea = styled.article`
   }
 `;
 
-const ResultTable = styled.article`
-  box-sizing: border-box;
-  max-width: 800px;
-  max-height: 500px;
-  background-color: #fff;
-  min-height: 300px;
-  margin-bottom: 20px;
-  overflow: scroll;
-  th {
-    border-bottom: 2px solid #000;
-    padding: 10px 0;
-    /* margin: 0; */
-    width: 140px;
-  }
-  td {
-    border-bottom: 1px dashed #aaa;
-    padding: 3px 5px;
-    width: 200px;
-    /* overflow: scroll; */
-  }
-`;
-
-const Main1Target = ({ handleSubmit, postSequence, setPostSequence, datas }) => {
+const Main1Target = ({
+  handleSubmit,
+  postSequence,
+  setPostSequence,
+  datas,
+  loading,
+  setLoading,
+}) => {
   console.log('메인1타겟의 DATA', datas);
-  console.log(datas.length, '길이');
+  // const [loading, setLoading] = useState(true);
+
+  // //sorting
+  // const [order, setOrder] = useState('ASC');
+  // const [dataValue, setDataValue] = useState([]);
+
+  // const handleSorting = col => {
+  //   let sortedProduct = [...datas[0].data.grna];
+  //   if (order === 'ASC') {
+  //     const sorted = [...sortedProduct].sort((a, b) => (a[col.key] > b[col.key] ? 1 : -1));
+  //     setOrder('DSC');
+  //     setDataValue(sorted);
+  //   }
+  //   if (order === 'DSC') {
+  //     const sorted = [...sortedProduct].sort((a, b) => (a[col] < b[col] ? 1 : -1));
+  //     setOrder('ASC');
+  //     setDataValue(sorted);
+  //   }
+  //   console.log(sortedProduct, 'sort후의 datas');
+  //   // return 0;
+  //   // datas[0].data.grna.sort();
+  //   // console.log(datas[0].data.grna);
+  // };
 
   // const engOnly = /^[A-Z]/g; //영문자 대문자만 허용.
   const onChange = e => {
@@ -124,47 +134,6 @@ const Main1Target = ({ handleSubmit, postSequence, setPostSequence, datas }) => 
     }
     setPostSequence(eletar.value);
   };
-
-  // 한땀한땀 우왕좌왕 로직.
-  const renderTrTd = () => {
-    if (datas.length === 0 && datas.data.grna > 1) {
-      // datas의 길이가 0이면 datas가 없는걸로 간주. null반환.
-      console.log('datas없음');
-      return null;
-    } else {
-      console.log('datas있음.');
-
-      let datasLength = datas.length;
-      console.log(datasLength, 'datas길이');
-
-      let countLength = datas[datas.length - 1].data.grna.length;
-      console.log(countLength, 'count길이');
-
-      let setArrayFor = [];
-
-      for (let j = 0; j < datasLength; j++) {
-        for (let i = 0; i < countLength; i++) {
-          setArrayFor.push(
-            <tr key={datas[j].data.grna.index}>
-              <td>{datas[j].data.grna[i]}</td>
-              <td>{datas[j].data.pam[i]}</td>
-              <td>{datas[j].data.strand[i]}</td>
-              <td>{datas[j].data.score[i]}</td>
-            </tr>
-          );
-        }
-      }
-      console.log('setArrayFor', setArrayFor);
-      return setArrayFor;
-    }
-  };
-
-  const [loading, setLoading] = useState(false);
-
-  // 대기중일 떄
-  if (loading) {
-    return <ResultTable>대기중..</ResultTable>;
-  }
 
   /* 아직 gflasDataArticle값이 설정되지 않았을 때. === 유효하지 않을 때
     // <ResultTable/>에 {gflasDataArticles? '':null}로 삼항조건연산자를 사용함. 둘 다 같은 의미라고 생각했기 때문.
@@ -214,54 +183,7 @@ const Main1Target = ({ handleSubmit, postSequence, setPostSequence, datas }) => 
             </div> */}
           </div>
         </TextArea>
-        {loading ? (
-          <ResultTable>데이터 가져오기 로딩 중...</ResultTable>
-        ) : (
-          <ResultTable>
-            {/* gflasDataArticle값이 유효하면 테이블을 보여주고, 아니라면 null을 반환한다. */}
-            {/* {!datas.length === 0 && ( */}
-            <table>
-              <thead>
-                <tr>
-                  <th>gRNA</th>
-                  <th>PAM</th>
-                  <th>Strand</th>
-                  <th>DECO Score</th>
-                </tr>
-              </thead>
-              <tbody>
-                {renderTrTd()};
-                {/* <td>데이터값이 유효하면 map배열 연산자로 풀어서 그려주기. 위 아래의</td>의 축약. */}
-                {/* {datas.map(da => {
-                    return (
-                      <>
-                        <tr>
-                          {da.data.grna.map(grna => {
-                            return <td>{grna}</td>;
-                          })}
-                          {da.data.pam.map(pam => {
-                            return <td>{pam}</td>;
-                          })}
-                          {da.data.strand.map(strand => {
-                            return <td>{strand}</td>;
-                          })}
-                          {da.data.score.map(score => {
-                            return <td>{score}</td>;
-                          })}
-                        </tr>
-
-                        {da.data.score.map(pa => {
-                          console.log(pa, 'paooaopap');
-                          return <td>{pa}</td>;
-                        })}
-                      </>
-                    );
-                  })} */}
-              </tbody>
-            </table>
-            {/* )} */}
-          </ResultTable>
-        )}
+        {datas && <ResultShowTable datas={datas} loading={loading} setLoading={setLoading} />}
       </div>
     </TargetWrap>
   );

@@ -42,6 +42,8 @@ const Main = () => {
   const [searchResult, setSearchResult] = useState([]);
   const [postSequence, setPostSequence] = useState('');
 
+  const [loading, setLoading] = useState(false);
+
   const history = useHistory();
 
   // // 데이터불러오기
@@ -65,8 +67,17 @@ const Main = () => {
   //   setSearchResult(filterResult.reverse());
   // }, [data, search]);
 
+  // useEffect(() => {
+  //   if (loading) {
+  //     setTimeout(() => {
+  //       setLoading(false);
+  //     }, 3000);
+  //   }
+  // }, [loading, setLoading]);
+
   // 정보입력
   const handleSubmit = async e => {
+    setLoading(true);
     e.preventDefault();
     // const id = data.length ? data[data.length - 1].id + 1 : 1;
     const searchingData = {
@@ -75,7 +86,7 @@ const Main = () => {
     try {
       const res = await client.post('/hello', searchingData);
       console.log(res, 'res를 봅시다. example 55번줄');
-      const allPost = [...datas, res];
+      const allPost = [res];
       setDatas(allPost);
       // setSearch('');
       setPostSequence('');
@@ -83,7 +94,27 @@ const Main = () => {
     } catch (error) {
       console.log(error, '값 입력 조회 오류');
     }
+    setLoading(false);
   };
+
+  // const [order, setOrder] = useState('ASC');
+
+  // 오름차순 내림차순 정렬
+  // const handleSorting = col => {
+  //   if (order === 'ASC') {
+  //     [...datas].sort((a, b) => (a[col.key] > b[col.key] ? 1 : -1));
+  //     // setDatas(sorted);
+  //     setOrder('DSC');
+  //   }
+  //   if (order === 'DSC') {
+  //     [...datas].sort((a, b) => (a[col] < b[col] ? 1 : -1));
+  //     // setDatas(sorted);
+  //     setOrder('ASC');
+  //   }
+  //   console.log(datas, 'sort후의 datas');
+  //   return 0;
+  // };
+
   return (
     <MainWrap>
       <div className='wrapBlock'>
@@ -95,6 +126,9 @@ const Main = () => {
             setDatas={setDatas}
             postSequence={postSequence}
             setPostSequence={setPostSequence}
+            loading={loading}
+            setLoading={setLoading}
+            // handleSorting={handleSorting}
           />
           {/* <Main2Quota />
           <Main3Unpicked />
