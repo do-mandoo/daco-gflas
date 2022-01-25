@@ -65,7 +65,7 @@ const Main = () => {
       const allPost = [res];
       setDatas(allPost);
       // setSearch('');
-      setPostSequence('');
+      // setPostSequence('');
       history.push('/');
     } catch (error) {
       console.log(error, '값 입력 조회 오류');
