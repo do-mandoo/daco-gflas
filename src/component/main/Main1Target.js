@@ -97,6 +97,7 @@ const Main1Target = ({
   postSequence,
   setPostSequence,
   datas,
+  setDatas,
   loading,
   setLoading,
 }) => {
@@ -133,6 +134,25 @@ const Main1Target = ({
       eletar.value = eletar.value.replace(engOnly, '');
     }
     setPostSequence(eletar.value);
+  };
+
+  const [order, setOrder] = useState('ASC');
+
+  // 오름차순 내림차순 정렬
+  const handleSorting = col => {
+    console.log(datas, 'datas의data');
+    if (order === 'ASC') {
+      const data = datas[0].data.sort((a, b) => (a[col] > b[col] ? 1 : -1));
+      console.log(data, 'sorted');
+      setDatas([{ data }]);
+      setOrder('DSC');
+    }
+    if (order === 'DSC') {
+      const data = datas[0].data.sort((a, b) => (a[col] < b[col] ? 1 : -1));
+      setDatas([{ data }]);
+      setOrder('ASC');
+    }
+    console.log(datas, 'sort후의 datas');
   };
 
   /* 아직 gflasDataArticle값이 설정되지 않았을 때. === 유효하지 않을 때
@@ -183,7 +203,15 @@ const Main1Target = ({
             </div> */}
           </div>
         </TextArea>
-        {datas && <ResultShowTable datas={datas} loading={loading} setLoading={setLoading} />}
+        {datas && (
+          <ResultShowTable
+            datas={datas}
+            setDatas={setDatas}
+            loading={loading}
+            setLoading={setLoading}
+            handleSorting={handleSorting}
+          />
+        )}
       </div>
     </TargetWrap>
   );

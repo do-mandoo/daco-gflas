@@ -39,28 +39,9 @@ const ResultTable = styled.article`
   }
 `;
 
-const ResultShowTable = ({ datas, loading, setLoading }) => {
-  // 한땀한땀 우왕좌왕 로직.
+const ResultShowTable = ({ datas, setDatas, loading, setLoading, handleSorting }) => {
   console.log(datas, 'ㅋㅋㅋdatas');
   console.log(datas.length, '렝스');
-
-  // const [order, setOrder] = useState('ASC');
-
-  // 오름차순 내림차순 정렬
-  // const handleSorting = col => {
-  //   if (order === 'ASC') {
-  //     [...datas].sort((a, b) => (a[col.key] > b[col.key] ? 1 : -1));
-  //     // setDatas(sorted);
-  //     setOrder('DSC');
-  //   }
-  //   if (order === 'DSC') {
-  //     [...datas].sort((a, b) => (a[col] < b[col] ? 1 : -1));
-  //     // setDatas(sorted);
-  //     setOrder('ASC');
-  //   }
-  //   console.log(datas, 'sort후의 datas');
-  //   return 0;
-  // };
 
   const renderTrTd = () => {
     try {
@@ -97,21 +78,37 @@ const ResultShowTable = ({ datas, loading, setLoading }) => {
     }
   };
 
+  console.log(datas[0].data[8].grna.length, ' datasdddd');
+
   return (
     <>
       <ResultTable>
         <table>
           <thead>
             <tr>
-              <th>gRNA</th>
-              <th>PAM</th>
-              <th>Strand</th>
-              <th>DECO Score</th>
+              <th onClick={() => handleSorting('grna')}>gRNA</th>
+              <th onClick={() => handleSorting('pam')}>PAM</th>
+              <th onClick={() => handleSorting('strand')}>Strand</th>
+              <th onClick={() => handleSorting('score')}>DECO Score</th>
             </tr>
           </thead>
           <tbody>
-            {/* {datas !== 0 && renderTrTd()} */}
-            {!loading ? renderTrTd() : <SpinnerIndex />}
+            {/* {!loading ? renderTrTd() : <SpinnerIndex />} */}
+            {/* {!loading || !datas ? ( */}
+            {!loading ? (
+              datas.map(data =>
+                data.data.map(da => (
+                  <tr key={da.index}>
+                    <td>{da.grna}</td>
+                    <td>{da.pam}</td>
+                    <td>{da.strand}</td>
+                    <td>{da.score}</td>
+                  </tr>
+                ))
+              )
+            ) : (
+              <SpinnerIndex />
+            )}
           </tbody>
         </table>
       </ResultTable>

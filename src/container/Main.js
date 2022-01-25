@@ -16,19 +16,22 @@ const MainWrap = styled.div`
   /* align-items: center; */
   .wrapBlock {
     display: flex;
-    max-width: 1100px;
-    margin: 0 auto;
+    justify-content: center;
+    /* align-items: center; */
+    /* max-width: 1100px; */
+    /* margin: 0 auto; */
     /* margin: 0 50px; */
   }
   .leftWrap {
     background-color: rgba(108, 117, 125, 0.5);
-    flex: 2;
+    width: 1100px;
+    /* flex: 2; */
   }
-  .rightWrap {
-    /* background-color: skyblue; */
+  /* .rightWrap {
+     background-color: skyblue;
     flex: 1;
     margin-left: 50px;
-  }
+  } */
   *,
   ::after,
   ::before {
@@ -44,36 +47,9 @@ const Main = () => {
 
   const [loading, setLoading] = useState(false);
 
+  // const [order, setOrder] = useState('ASC');
+
   const history = useHistory();
-
-  // // 데이터불러오기
-  // useEffect(() => {
-  //   const fetchDatas = async () => {
-  //     try {
-  //       console.log(1);
-  //       const res = await client.get('/hello');
-  //       console.log(res, 'res살펴보기');
-  //       setData(res);
-  //     } catch (error) {
-  //       console.log(error, '데이터가져오기 오류');
-  //     }
-  //   };
-  //   fetchDatas();
-  // }, []);
-
-  // 검색
-  // useEffect(() => {
-  //   const filterResult = data.filter(da => da.data.result.includes(search.toLowerCase()));
-  //   setSearchResult(filterResult.reverse());
-  // }, [data, search]);
-
-  // useEffect(() => {
-  //   if (loading) {
-  //     setTimeout(() => {
-  //       setLoading(false);
-  //     }, 3000);
-  //   }
-  // }, [loading, setLoading]);
 
   // 정보입력
   const handleSubmit = async e => {
@@ -135,9 +111,9 @@ const Main = () => {
           <hr />
           <Main4EndBtn /> */}
         </div>
-        <div className='rightWrap'>
+        {/* <div className='rightWrap'>
           <Side0Btn />
-        </div>
+        </div> */}
       </div>
     </MainWrap>
   );
