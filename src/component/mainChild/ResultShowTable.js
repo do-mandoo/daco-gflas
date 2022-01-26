@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import SpinnerIndex from '../spinner/SpinnerIndex';
 
@@ -39,46 +39,8 @@ const ResultTable = styled.article`
   }
 `;
 
-const ResultShowTable = ({ datas, setDatas, loading, setLoading, handleSorting }) => {
-  console.log(datas, 'ㅋㅋㅋdatas');
-  console.log(datas.length, '렝스');
-
-  const renderTrTd = () => {
-    try {
-      if (datas.length === 0) {
-        console.log('datas없음');
-        return null;
-      } else {
-        console.log('datas있음.');
-
-        let datasLength = datas.length;
-        console.log(datasLength, 'datas길이');
-
-        let countLength = datas[datas.length - 1].data.grna.length;
-        console.log(countLength, 'count길이');
-
-        let setArrayFor = [];
-        for (let j = 0; j < datasLength; j++) {
-          for (let i = 0; i < countLength; i++) {
-            setArrayFor.push(
-              <tr key={datas[j].data.grna.index}>
-                <td>{datas[j].data.grna[i]}</td>
-                <td>{datas[j].data.pam[i]}</td>
-                <td>{datas[j].data.strand[i]}</td>
-                <td>{datas[j].data.score[i]}</td>
-              </tr>
-            );
-          }
-        }
-        console.log('setArrayFor', setArrayFor);
-        return setArrayFor;
-      }
-    } catch (error) {
-      console.log(error, 'loading&한땀가져오기 에러');
-    }
-  };
-
-  console.log(datas[0].data[8].grna.length, ' datasdddd');
+const ResultShowTable = ({ datas, loading, handleSorting }) => {
+  console.log(datas, 'ResultShowTable의 datas');
 
   return (
     <>
@@ -93,8 +55,6 @@ const ResultShowTable = ({ datas, setDatas, loading, setLoading, handleSorting }
             </tr>
           </thead>
           <tbody>
-            {/* {!loading ? renderTrTd() : <SpinnerIndex />} */}
-            {/* {!loading || !datas ? ( */}
             {!loading ? (
               datas.map(data =>
                 data.data.map(da => (

@@ -1,16 +1,8 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { FaTrash, FaInfoCircle } from 'react-icons/fa';
-import { useEffect } from 'react';
-import client from '../../api/client';
-import { ClipLoader } from 'react-spinners';
 import ResultShowTable from '../mainChild/ResultShowTable';
-import SpinnerIndex from '../spinner/SpinnerIndex';
-// import ExampleInputValue from '../dataEx/ExampleInputValue';
 
 const TargetWrap = styled.section`
-  /* background-color: #ccc; */
-  /* padding-bottom: 10px; */
   h2 {
     margin: 0;
     margin-bottom: 10px;
@@ -20,14 +12,11 @@ const TargetWrap = styled.section`
 `;
 
 const SelectOption = styled.article`
-  /* background-color: tomato; */
   display: flex;
   margin-bottom: 5px;
 `;
 
 const TextArea = styled.article`
-  /* background-color: yellowgreen; */
-  /* display: none; */
   textarea {
     max-height: 140px;
     width: 300px;
@@ -102,29 +91,6 @@ const Main1Target = ({
   setLoading,
 }) => {
   console.log('메인1타겟의 DATA', datas);
-  // const [loading, setLoading] = useState(true);
-
-  // //sorting
-  // const [order, setOrder] = useState('ASC');
-  // const [dataValue, setDataValue] = useState([]);
-
-  // const handleSorting = col => {
-  //   let sortedProduct = [...datas[0].data.grna];
-  //   if (order === 'ASC') {
-  //     const sorted = [...sortedProduct].sort((a, b) => (a[col.key] > b[col.key] ? 1 : -1));
-  //     setOrder('DSC');
-  //     setDataValue(sorted);
-  //   }
-  //   if (order === 'DSC') {
-  //     const sorted = [...sortedProduct].sort((a, b) => (a[col] < b[col] ? 1 : -1));
-  //     setOrder('ASC');
-  //     setDataValue(sorted);
-  //   }
-  //   console.log(sortedProduct, 'sort후의 datas');
-  //   // return 0;
-  //   // datas[0].data.grna.sort();
-  //   // console.log(datas[0].data.grna);
-  // };
 
   // const engOnly = /^[A-Z]/g; //영문자 대문자만 허용.
   const onChange = e => {
@@ -155,13 +121,6 @@ const Main1Target = ({
     console.log(datas, 'sort후의 datas');
   };
 
-  /* 아직 gflasDataArticle값이 설정되지 않았을 때. === 유효하지 않을 때
-    // <ResultTable/>에 {gflasDataArticles? '':null}로 삼항조건연산자를 사용함. 둘 다 같은 의미라고 생각했기 때문.
-  if (!gflasDataArticles) {
-    return null;
-  } */
-
-  // gflasDataArticle값이 유효할 때
   return (
     <TargetWrap>
       <div>
@@ -195,13 +154,7 @@ const Main1Target = ({
               값 입력
             </button>
           </form>
-          <div className='showValueBlock'>
-            {/* <div className='valueH'>결과 값: </div> */}
-            {/* <div className='showEnterValue'>
-              {data &&
-                data.map(da => <div key={da.data.result}>{da.data.result.toUpperCase()}</div>)}
-            </div> */}
-          </div>
+          <div className='showValueBlock'></div>
         </TextArea>
         {datas && (
           <ResultShowTable
