@@ -16,19 +16,22 @@ const MainWrap = styled.div`
   /* align-items: center; */
   .wrapBlock {
     display: flex;
-    max-width: 1100px;
-    margin: 0 auto;
+    justify-content: center;
+    /* align-items: center; */
+    /* max-width: 1100px; */
+    /* margin: 0 auto; */
     /* margin: 0 50px; */
   }
   .leftWrap {
     background-color: rgba(108, 117, 125, 0.5);
-    flex: 2;
+    width: 1100px;
+    /* flex: 2; */
   }
-  .rightWrap {
-    /* background-color: skyblue; */
+  /* .rightWrap {
+     background-color: skyblue;
     flex: 1;
     margin-left: 50px;
-  }
+  } */
   *,
   ::after,
   ::before {
@@ -37,36 +40,20 @@ const MainWrap = styled.div`
 `;
 
 const Main = () => {
-  const [data, setData] = useState([]);
+  const [datas, setDatas] = useState([]);
   const [search, setSearch] = useState('');
   const [searchResult, setSearchResult] = useState([]);
   const [postSequence, setPostSequence] = useState('');
 
+  const [loading, setLoading] = useState(false);
+
+  // const [order, setOrder] = useState('ASC');
+
   const history = useHistory();
-
-  // // 데이터불러오기
-  // useEffect(() => {
-  //   const fetchDatas = async () => {
-  //     try {
-  //       console.log(1);
-  //       const res = await client.get('/hello');
-  //       console.log(res, 'res살펴보기');
-  //       setData(res);
-  //     } catch (error) {
-  //       console.log(error, '데이터가져오기 오류');
-  //     }
-  //   };
-  //   fetchDatas();
-  // }, []);
-
-  // 검색
-  // useEffect(() => {
-  //   const filterResult = data.filter(da => da.data.result.includes(search.toLowerCase()));
-  //   setSearchResult(filterResult.reverse());
-  // }, [data, search]);
 
   // 정보입력
   const handleSubmit = async e => {
+    setLoading(true);
     e.preventDefault();
     // const id = data.length ? data[data.length - 1].id + 1 : 1;
     const searchingData = {
@@ -75,15 +62,35 @@ const Main = () => {
     try {
       const res = await client.post('/hello', searchingData);
       console.log(res, 'res를 봅시다. example 55번줄');
-      const allPost = [...data, res];
-      setData(allPost);
+      const allPost = [res];
+      setDatas(allPost);
       // setSearch('');
-      setPostSequence('');
+      // setPostSequence('');
       history.push('/');
     } catch (error) {
       console.log(error, '값 입력 조회 오류');
     }
+    setLoading(false);
   };
+
+  // const [order, setOrder] = useState('ASC');
+
+  // 오름차순 내림차순 정렬
+  // const handleSorting = col => {
+  //   if (order === 'ASC') {
+  //     [...datas].sort((a, b) => (a[col.key] > b[col.key] ? 1 : -1));
+  //     // setDatas(sorted);
+  //     setOrder('DSC');
+  //   }
+  //   if (order === 'DSC') {
+  //     [...datas].sort((a, b) => (a[col] < b[col] ? 1 : -1));
+  //     // setDatas(sorted);
+  //     setOrder('ASC');
+  //   }
+  //   console.log(datas, 'sort후의 datas');
+  //   return 0;
+  // };
+
   return (
     <MainWrap>
       <div className='wrapBlock'>
@@ -91,19 +98,22 @@ const Main = () => {
           <Main0Ref />
           <Main1Target
             handleSubmit={handleSubmit}
-            data={data}
-            setData={setData}
+            datas={datas}
+            setDatas={setDatas}
             postSequence={postSequence}
             setPostSequence={setPostSequence}
+            loading={loading}
+            setLoading={setLoading}
+            // handleSorting={handleSorting}
           />
           {/* <Main2Quota />
           <Main3Unpicked />
           <hr />
           <Main4EndBtn /> */}
         </div>
-        <div className='rightWrap'>
+        {/* <div className='rightWrap'>
           <Side0Btn />
-        </div>
+        </div> */}
       </div>
     </MainWrap>
   );
