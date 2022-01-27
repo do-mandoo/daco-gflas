@@ -1,12 +1,14 @@
+import { Helmet } from 'react-helmet-async';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
-import Example from './component/dataEx/Example';
 import Homepage from './pages/Homepage';
 // import Mainpage from './pages/Mainpage';
 
 function App() {
   return (
     <>
-      {/* <Mainpage /> */}
+      <Helmet>
+        <title>gflas</title>
+      </Helmet>
       <BrowserRouter>
         <Switch>
           <Route>
@@ -14,7 +16,6 @@ function App() {
           </Route>
         </Switch>
       </BrowserRouter>
-      {/* <Example /> */}
     </>
   );
 }
